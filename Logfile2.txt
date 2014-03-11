@@ -1,0 +1,65 @@
+create table administrator
+(
+root_name varchar(20),
+root_password varchar(20)
+
+primary key(root_name,root_password)
+)
+
+insert into administrator values('Rushang','0911083B')
+insert into administrator values('Sohil','0911096B')
+
+select * from administrator
+
+select * from auction
+select * from customer
+
+
+insert into sold(auction_id,winner)
+(
+select auction_id,max_bid_holder
+from auction
+where max_bid >= ( select max(max_bid)
+		from auction
+		where item_id=1	)
+)
+
+select * from item
+
+
+
+delete from auction
+where item_id=1
+
+select * from sold
+delete from sold
+
+update item 
+set items_sold=0
+where item_id=1
+
+update item 
+set items_in_stock=15
+where item_id=1
+
+alter table item add check (items_in_stock > 0)
+
+select * from auction
+
+create table sold
+(
+item_id int foreign key references item,
+winner varchar(20) foreign key references customer
+)
+
+drop table sold
+
+select * from auction_room
+
+
+insert into auction room(auction_id,item_id)(select auction_id,item_id from auction where auction_id >=(select max(auction_id) from auction)
+
+select * from auction
+
+delete from auction_room
+delete from auction

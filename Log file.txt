@@ -1,0 +1,107 @@
+create database auction_system
+
+use auction_system
+
+create table item
+(
+item_id int primary key,
+item_name varchar(20),
+item_type varchar(20) not null constraint type_test check (item_type in('ancient','technology','clothing','art','misc')),
+item_year int,
+items_sold int,
+items_in_stock int, 
+)
+alter table item add check (items_in_stock > 0)
+
+delete from item
+select * from item
+
+insert into item values(1,'manuscript','ancient',1991,0,15)
+insert into item values(2,'nokia 3250','technology',2000,0,15)
+insert into item values(3,'jeans','clothing',2011,0,50)
+insert into item values(4,'MF Hussain piece','art',1980,0,1)
+insert into item values(5,'bracelet','misc',2000,0,25)
+insert into item values(6,'1 paise coin','ancient',1947,0,3)
+insert into item values(7,'kids tshirt','clothing',2005,0,7)
+insert into item values(8,'provogue shirt','clothing',2010,0,15)
+insert into item values(9,'ps3','techology',2007,0,5)
+insert into item values(10,'torch','misc',2008,0,100)
+
+
+create table employee
+(
+PAN varchar(20) primary key,
+first_name varchar(20),
+last_name varchar(20),
+city varchar(20),
+state varchar(20),
+telephone varchar(20),
+salary int
+)
+
+select * from employee
+
+insert into employee values(3456,'Rushabh','Shah','Bhavnagar','Gujarat','9819534932',3500)
+insert into employee values(3457,'Sudesh','Shinde','Mumbai','Maharashtra','9920778912',3500)
+insert into employee values(3458,'Tilak','Kakkad','Mumbai','Maharashtra','9870569875',3500)
+insert into employee values(1234,'Jignashu','Solanki','Mumbai','Maharashtra','9773525405',4000)
+insert into employee values(4556,'Jay','Mehta','Mumbai','Maharashtra','9022456789',3500)
+
+create table customer
+(
+PAN varchar(20) primary key,
+first_name varchar(20),
+last_name varchar(20),
+city varchar(20),
+state varchar(20),
+telephone varchar(20)
+)
+
+select * from customer
+
+insert into customer values(1111,'Rushang','Karia','Mumbai','Maharashtra','9022697073')
+insert into customer values(2222,'Sohil','Shah','Mumbai','Maharashtra','961925852')
+insert into customer values(3333,'Kailash','Kotak','Mumbai','Maharashtra','9833595886')
+insert into customer values(4444,'Dhaval','Satra','Vashi','Maharashtra','8080789546')
+insert into customer values(4652,'Dishak','Dulani','Mumbai','Maharashtra','9820020214')
+insert into customer values(8974,'Sohyal','Swaheny','Leh','Kashmir','2569842364')
+
+
+create table auction
+(
+auction_id int primary key identity,
+item_id int foreign key references item,
+max_bid_holder varchar(20) foreign key references customer,
+max_bid int
+)
+
+
+
+insert into auction values(1,1111,2000)
+insert into auction values(6,1111,2000)
+
+select * from auction
+delete from auction
+
+create table sold
+(
+item_id int foreign key references item,
+winner varchar(20) foreign key references customer
+)
+
+create table auction_room
+(
+auction_id int foreign key references auction on delete cascade,
+item_id int foreign key references item on delete cascade
+)
+
+create table administrator
+(
+root_name varchar(20),
+root_password varchar(20)
+
+primary key(root_name,root_password)
+)
+
+insert into administrator values('Rushang','0911083B')
+insert into administrator values('Sohil','0911096B')

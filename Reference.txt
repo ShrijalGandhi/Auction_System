@@ -1,0 +1,55 @@
+
+
+Private Sub Command1_Click()
+Dim Con As New ADODB.Connection
+Con.Open "Provider=SQLOLEDB.1;Persist Security Info=False;User ID=sa;pwd=sa;Initial Catalog=university 1;Data Source=mms_n117-10"
+MsgBox "open commection"
+strsql = "insert into student(roll_no,s_name,contact_no,dept_id) values(" & Text1.Text & ",'" & Text2.Text & "'," & Text3.Text & "," & Text4.Text & ")"
+MsgBox strsql
+Con.Execute strsql
+End Sub
+
+
+Private Sub Command1_Click()
+Dim Con As New ADODB.Connection
+Con.Open "Provider=SQLOLEDB.1;Persist Security Info=False;User ID=sa;pwd=sa;Initial Catalog=university 1;Data Source=mms_n117-10"
+MsgBox "open commection"
+strsql = "insert into department values(" & Text1.Text & ",'" & Text2.Text & "'," & Text3.Text & "," & Text4.Text & ")"
+MsgBox strsql
+Con.Execute strsql
+End Sub
+
+Private Sub Command2_Click()
+Dim con As New ADODB.Connection
+con.Open "Provider=SQLOLEDB.1;Persist Security Info=False;User ID=sa;Initial Catalog=bank;Data Source=MMS_N117-10;pwd=sa"
+
+'con.Execute strsql
+strsql = " delete from student where roll_no=" & Text1.Text
+con.Execute strsql
+End Sub
+
+Private Sub Command3_Click()
+
+Dim con As New ADODB.Connection
+con.Open "Provider=SQLOLEDB.1;Persist Security Info=False;User ID=sa;Initial Catalog=bank;Data Source=MMS_N117-10;pwd=sa"
+
+'con.Execute strsql
+strsql = " update department set dept_name ='" & Text2.Text & "' where dept_id = " & Text1.Text
+con.Execute strsql
+End Sub
+
+Private Sub Command4_Click()
+Dim con As New ADODB.Connection
+Dim rs As New ADODB.Recordset
+
+con.Open "Provider=SQLOLEDB.1;Persist Security Info=False;User ID=sa;Initial Catalog=bank;Data Source=MMS_N117-10;pwd=sa"
+strsql = "select * from student where roll_no=" & Text1.Text
+rs.Open strsql, con
+If Not rs.EOF And Not rs.BOF Then
+Text1.Text = rs("roll_no")
+Text2.Text = rs("s_name")
+Else
+MsgBox " data not found "
+End If
+'con.Execute strsql
+End Sub
